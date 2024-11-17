@@ -1,9 +1,4 @@
 import os
-
-#path='/Users/pabloguzzi/Projects/virtual-board/'
-#os.chdir(path)
-
-
 import cv2
 import handtracking as htm
 import numpy as np
@@ -17,7 +12,11 @@ drawColor=(255,255,255)#color default
 xp, yp = 0, 0
 canvas = np.zeros((720, 1280, 3), np.uint8)
 
-headerFolder="header"
+# directorio donde está ubicado el archivo en ejecución
+current_folder = os.path.dirname(os.path.abspath(__file__))
+# Construye la ruta completa a la subcarpeta "header"
+headerFolder = os.path.join(current_folder, "header")
+
 myList=os.listdir(headerFolder)
 #print(myList)
 
@@ -27,13 +26,13 @@ for imPath in myList:
     overImages.append(resized_up)#inserting images one by one in the overImages
 
 header=overImages[0]#storing 1st image 
-cap=cv2.VideoCapture(1)
+cap=cv2.VideoCapture(0)
 cap.set(3,1280)#width
 cap.set(4,720)#height
 
 detector = htm.handDetector(detectionCon=0.50,maxHands=1)
 writer = None
-file_out='output.avi'
+file_out = os.path.join(current_folder, 'output.avi')
 fourcc = cv2.VideoWriter_fourcc(*'XVID') 
 
 while True:
@@ -122,15 +121,10 @@ while True:
     key = cv2.waitKey(1)
     if key == ord('q'):
         break
-    
-    
-    
 
 # Release camara & destroy the windows.    
 cap.release()
 cv2.destroyAllWindows()
-        
-
 
 #Pasamos a mp4, avi pesa mucho!
 #pendiente escribir mp4 directo ( se puede? )

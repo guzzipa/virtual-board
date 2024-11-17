@@ -2,15 +2,21 @@ import cv2
 import mediapipe as mp
 import math
 
+
 class handDetector():
-    def __init__(self,mode=False,maxHands=2,detectionCon=0.5,trackCon=0.5):
-        self.mode=mode 
-        self.maxHands=maxHands
-        self.detectionCon=detectionCon
-        self.trackCon=trackCon
-        self.mpHands=mp.solutions.hands
-        self.hands=self.mpHands.Hands(self.mode,self.maxHands,self.detectionCon,self.trackCon)
-        self.mpDraw=mp.solutions.drawing_utils#objetos para dibujar
+    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
+        self.mode = mode
+        self.maxHands = maxHands
+        self.detectionCon = detectionCon
+        self.trackCon = trackCon
+        self.mpHands = mp.solutions.hands
+        self.hands = self.mpHands.Hands(
+            static_image_mode=self.mode,
+            max_num_hands=self.maxHands,
+            min_detection_confidence=float(self.detectionCon),
+            min_tracking_confidence=float(self.trackCon)
+        )
+        self.mpDraw = mp.solutions.drawing_utils  # objetos para dibujar
         self.tipIds = [4, 8, 12, 16, 20]
 
     def findHands(self,frame,draw=True):
