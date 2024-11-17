@@ -17,7 +17,7 @@ Usando **OpenCV** y **MediaPipe**, detecta tus gestos y permite seleccionar colo
 
 1. Cloná este repositorio:
    ```bash
-   git clone https://github.com/tuusuario/virtual-board.git
+   git clone https://github.com/guzzipa/virtual-board.git
    cd virtual-board
 
 2. Instalá las dependencias:
